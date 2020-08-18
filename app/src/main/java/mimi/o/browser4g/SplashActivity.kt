@@ -10,6 +10,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import android.preference.PreferenceManager
+import com.startapp.sdk.adsbase.StartAppSDK
 import java.util.*
 
 class SplashActivity : AppCompatActivity() {
@@ -22,7 +23,9 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        MobileAds.initialize(this, "ca-app-pub-2322131950454521~6253376330")
+//        MobileAds.initialize(this, "ca-app-pub-2322131950454521~6253376330")
+//        startApp
+        StartAppSDK.init(this, "132229622", "207763060", true);
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val lastopen = prefs.getInt("lastopen", 0)
@@ -37,55 +40,55 @@ class SplashActivity : AppCompatActivity() {
             return
         }
 
-        mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-2322131950454521/3627212999"
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
+//        mInterstitialAd = InterstitialAd(this)
+//        mInterstitialAd.adUnitId = "ca-app-pub-2322131950454521/3627212999"
+//        mInterstitialAd.loadAd(AdRequest.Builder().build())
 
-        mInterstitialAd.adListener = object : AdListener() {
-            override fun onAdLoaded() {
-                if(!adRespons)
-                    return
+//        mInterstitialAd.adListener = object : AdListener() {
+//            override fun onAdLoaded() {
+//                if(!adRespons)
+//                    return
+//
+//                handler.removeCallbacks(runable)
+//                handler.post(runable)
+//                Log.i("Ads", "onAdLoaded")
+//            }
+//
+//            override fun onAdFailedToLoad(errorCode: Int) {
+//                if(!adRespons)
+//                    return
+//
+//                handler.removeCallbacks(runable)
+//                handler.post(runable)
+//                Log.i("Ads", "onAdFailedToLoad")
+//            }
+//
+//            override fun onAdOpened() {
+//                Log.i("Ads", "onAdOpened")
+//            }
+//
+//            override fun onAdLeftApplication() {
+//                Log.i("Ads", "onAdLeftApplication")
+//            }
+//
+//            override fun onAdClosed() {
+//                Log.i("Ads", "onAdClosed")
+//                val i = Intent(this@SplashActivity, MainActivity::class.java)
+//                startActivity(i)
+//            }
+//        }
 
-                handler.removeCallbacks(runable)
-                handler.post(runable)
-                Log.i("Ads", "onAdLoaded")
-            }
-
-            override fun onAdFailedToLoad(errorCode: Int) {
-                if(!adRespons)
-                    return
-
-                handler.removeCallbacks(runable)
-                handler.post(runable)
-                Log.i("Ads", "onAdFailedToLoad")
-            }
-
-            override fun onAdOpened() {
-                Log.i("Ads", "onAdOpened")
-            }
-
-            override fun onAdLeftApplication() {
-                Log.i("Ads", "onAdLeftApplication")
-            }
-
-            override fun onAdClosed() {
-                Log.i("Ads", "onAdClosed")
-                val i = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(i)
-            }
-        }
-
-        runable = Runnable {
-            adRespons = false
-            if (mInterstitialAd.isLoaded) {
-                Log.i("Ads", "onAdSHOOOW")
-                mInterstitialAd.show()
-            } else {
-                Log.d("Ads", "The interstitial wasn't loaded yet.")
-                val i = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(i)
-            }
-        }
+//        runable = Runnable {
+//            adRespons = false
+//            if (mInterstitialAd.isLoaded) {
+//                Log.i("Ads", "onAdSHOOOW")
+//                mInterstitialAd.show()
+//            } else {
+//                Log.d("Ads", "The interstitial wasn't loaded yet.")
+//                val i = Intent(this@SplashActivity, MainActivity::class.java)
+//                startActivity(i)
+//            }
+//        }
 
         startDelay(4000)
     }
