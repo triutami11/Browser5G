@@ -57,6 +57,8 @@
             android:name="com.startapp.sdk.APPLICATION_ID"
             android:value="207763060" />
 
+        <meta-data android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
+            android:value="false"/>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2322131950454521~6253376330" />
