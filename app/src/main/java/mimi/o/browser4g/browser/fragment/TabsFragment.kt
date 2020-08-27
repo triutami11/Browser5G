@@ -1,22 +1,5 @@
 package mimi.o.browser4g.browser.fragment
 
-import mimi.o.browser4g.BuildConfig
-import mimi.o.browser4g.R
-import mimi.o.browser4g.browser.TabsManager
-import mimi.o.browser4g.browser.TabsView
-import mimi.o.browser4g.browser.fragment.anim.HorizontalItemAnimator
-import mimi.o.browser4g.browser.fragment.anim.VerticalItemAnimator
-import mimi.o.browser4g.controller.UIController
-import mimi.o.browser4g.di.injector
-import mimi.o.browser4g.extensions.color
-import mimi.o.browser4g.extensions.desaturate
-import mimi.o.browser4g.extensions.drawTrapezoid
-import mimi.o.browser4g.preference.UserPreferences
-import mimi.o.browser4g.utils.DrawableUtils
-import mimi.o.browser4g.utils.ThemeUtils
-import mimi.o.browser4g.utils.Utils
-import mimi.o.browser4g.view.BackgroundDrawable
-import mimi.o.browser4g.view.LightningView
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -37,11 +20,28 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdView
+import com.startapp.sdk.ads.banner.Banner
+import com.startapp.sdk.adsbase.StartAppSDK
 import kotlinx.android.synthetic.main.tab_drawer.*
+import mimi.o.browser4g.R
+import mimi.o.browser4g.browser.TabsManager
+import mimi.o.browser4g.browser.TabsView
+import mimi.o.browser4g.browser.fragment.anim.HorizontalItemAnimator
+import mimi.o.browser4g.browser.fragment.anim.VerticalItemAnimator
+import mimi.o.browser4g.controller.UIController
+import mimi.o.browser4g.di.injector
+import mimi.o.browser4g.extensions.color
+import mimi.o.browser4g.extensions.desaturate
+import mimi.o.browser4g.extensions.drawTrapezoid
+import mimi.o.browser4g.preference.UserPreferences
+import mimi.o.browser4g.utils.DrawableUtils
+import mimi.o.browser4g.utils.ThemeUtils
+import mimi.o.browser4g.utils.Utils
+import mimi.o.browser4g.view.BackgroundDrawable
+import mimi.o.browser4g.view.LightningView
 import java.util.*
 import javax.inject.Inject
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 
 /**
  * A fragment that holds and manages the tabs and interaction with the tabs. It is reliant on the
@@ -61,6 +61,7 @@ class TabsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener,
     private lateinit var uiController: UIController
 
     lateinit var mAdView : AdView
+    lateinit var banner : Banner
     @Inject internal lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +77,7 @@ class TabsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener,
         colorMode = colorMode and !darkTheme
 
         iconColor = ThemeUtils.getIconThemeColor(context, darkTheme)
+        StartAppSDK.init(context, "132229622", "207763060", true);
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -97,13 +99,16 @@ class TabsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener,
             }
         }
 
-        mAdView = view.findViewById(R.id.adView)
-        if (!BuildConfig.FULL_VERSION) {
-            val adRequest = AdRequest.Builder().build()
-            mAdView.loadAd(adRequest)
-        } else {
-            mAdView.visibility = View.GONE
-        }
+       banner = view.findViewById(R.id.startAppBanner)
+        banner.loadAd()
+
+//        mAdView = view.findViewById(R.id.adView)
+//        if (!BuildConfig.FULL_VERSION) {
+//            val adRequest = AdRequest.Builder().build()
+//            mAdView.loadAd(adRequest)
+//        } else {
+//            mAdView.visibility = View.GONE
+//        }
 
         return view
     }

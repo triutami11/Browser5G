@@ -57,6 +57,9 @@
             android:name="com.startapp.sdk.APPLICATION_ID"
             android:value="207763060" />
 
+        <meta-data android:name="com.startapp.sdk.android.DEV_ID"
+            android:value="132229622"/>
+
         <meta-data android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
             android:value="false"/>
         <meta-data

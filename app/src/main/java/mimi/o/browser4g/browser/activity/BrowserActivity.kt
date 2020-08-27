@@ -4,40 +4,6 @@
 
 package mimi.o.browser4g.browser.activity
 
-import mimi.o.browser4g.IncognitoActivity
-import mimi.o.browser4g.R
-import mimi.o.browser4g.browser.*
-import mimi.o.browser4g.browser.fragment.BookmarksFragment
-import mimi.o.browser4g.browser.fragment.TabsFragment
-import mimi.o.browser4g.constant.LOAD_READING_URL
-import mimi.o.browser4g.controller.UIController
-import mimi.o.browser4g.database.Bookmark
-import mimi.o.browser4g.database.HistoryEntry
-import mimi.o.browser4g.database.bookmark.BookmarkRepository
-import mimi.o.browser4g.database.history.HistoryRepository
-import mimi.o.browser4g.di.DatabaseScheduler
-import mimi.o.browser4g.di.MainHandler
-import mimi.o.browser4g.di.MainScheduler
-import mimi.o.browser4g.di.injector
-import mimi.o.browser4g.dialog.BrowserDialog
-import mimi.o.browser4g.dialog.DialogItem
-import mimi.o.browser4g.dialog.LightningDialogBuilder
-import mimi.o.browser4g.extensions.*
-import mimi.o.browser4g.html.bookmark.BookmarkPageFactory
-import mimi.o.browser4g.html.history.HistoryPageFactory
-import mimi.o.browser4g.html.homepage.HomePageFactory
-import mimi.o.browser4g.interpolator.BezierDecelerateInterpolator
-import mimi.o.browser4g.log.Logger
-import mimi.o.browser4g.notifications.IncognitoNotification
-import mimi.o.browser4g.reading.activity.ReadingActivity
-import mimi.o.browser4g.search.SearchEngineProvider
-import mimi.o.browser4g.search.SuggestionsAdapter
-import mimi.o.browser4g.settings.activity.SettingsActivity
-import mimi.o.browser4g.ssl.SSLState
-import mimi.o.browser4g.utils.*
-import mimi.o.browser4g.view.*
-import mimi.o.browser4g.view.SearchView
-import mimi.o.browser4g.view.find.FindResults
 import android.app.Activity
 import android.app.NotificationManager
 import android.content.ClipData
@@ -84,6 +50,8 @@ import androidx.fragment.app.Fragment
 import androidx.palette.graphics.Palette
 import butterknife.ButterKnife
 import com.anthonycr.grant.PermissionsManager
+import com.startapp.sdk.adsbase.StartAppAd
+import com.startapp.sdk.adsbase.StartAppSDK
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.subscribeBy
@@ -92,6 +60,40 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.browser_content.*
 import kotlinx.android.synthetic.main.search_interface.*
 import kotlinx.android.synthetic.main.toolbar.*
+import mimi.o.browser4g.IncognitoActivity
+import mimi.o.browser4g.R
+import mimi.o.browser4g.browser.*
+import mimi.o.browser4g.browser.fragment.BookmarksFragment
+import mimi.o.browser4g.browser.fragment.TabsFragment
+import mimi.o.browser4g.constant.LOAD_READING_URL
+import mimi.o.browser4g.controller.UIController
+import mimi.o.browser4g.database.Bookmark
+import mimi.o.browser4g.database.HistoryEntry
+import mimi.o.browser4g.database.bookmark.BookmarkRepository
+import mimi.o.browser4g.database.history.HistoryRepository
+import mimi.o.browser4g.di.DatabaseScheduler
+import mimi.o.browser4g.di.MainHandler
+import mimi.o.browser4g.di.MainScheduler
+import mimi.o.browser4g.di.injector
+import mimi.o.browser4g.dialog.BrowserDialog
+import mimi.o.browser4g.dialog.DialogItem
+import mimi.o.browser4g.dialog.LightningDialogBuilder
+import mimi.o.browser4g.extensions.*
+import mimi.o.browser4g.html.bookmark.BookmarkPageFactory
+import mimi.o.browser4g.html.history.HistoryPageFactory
+import mimi.o.browser4g.html.homepage.HomePageFactory
+import mimi.o.browser4g.interpolator.BezierDecelerateInterpolator
+import mimi.o.browser4g.log.Logger
+import mimi.o.browser4g.notifications.IncognitoNotification
+import mimi.o.browser4g.reading.activity.ReadingActivity
+import mimi.o.browser4g.search.SearchEngineProvider
+import mimi.o.browser4g.search.SuggestionsAdapter
+import mimi.o.browser4g.settings.activity.SettingsActivity
+import mimi.o.browser4g.ssl.SSLState
+import mimi.o.browser4g.utils.*
+import mimi.o.browser4g.view.*
+import mimi.o.browser4g.view.SearchView
+import mimi.o.browser4g.view.find.FindResults
 import java.io.IOException
 import javax.inject.Inject
 
@@ -136,6 +138,9 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     private var cameraPhotoPath: String? = null
 
     private var findResult: FindResults? = null
+
+    // startApp
+    private lateinit var startAppAd : StartAppAd
 
     // The singleton BookmarkManager
     @Inject lateinit var bookmarkManager: BookmarkRepository
@@ -203,6 +208,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     protected abstract fun updateCookiePreference(): Completable
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        StartAppSDK.init(this, "132229622", "207763060", true);
         super.onCreate(savedInstanceState)
         injector.inject(this)
         setContentView(R.layout.activity_main)
@@ -1173,6 +1179,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     }
 
     override fun onBackPressed() {
+        startAppAd.onBackPressed()
         val currentTab = tabsManager.currentTab
         if (drawer_layout.isDrawerOpen(getTabDrawer())) {
             drawer_layout.closeDrawer(getTabDrawer())
@@ -1201,6 +1208,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
                 super.onBackPressed()
             }
         }
+
     }
 
     override fun onPause() {

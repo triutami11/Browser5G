@@ -1,17 +1,15 @@
 package mimi.o.browser4g
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
 import android.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.ads.InterstitialAd
+import com.startapp.sdk.adsbase.StartAppAd
 import com.startapp.sdk.adsbase.StartAppSDK
 import java.util.*
+
 
 class SplashActivity : AppCompatActivity() {
 
