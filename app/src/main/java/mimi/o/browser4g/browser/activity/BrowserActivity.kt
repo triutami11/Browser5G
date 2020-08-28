@@ -236,6 +236,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
             RecentTabModel(),
             logger
         )
+        startAppAd = StartAppAd(this)
 
         initialize(savedInstanceState)
     }
