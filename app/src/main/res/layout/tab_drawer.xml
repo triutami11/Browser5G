@@ -55,13 +55,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <com.startapp.sdk.ads.banner.Banner
-            android:id="@+id/startAppBanner"
-            android:layout_width="wrap_content"
+<!--        for startApp-->
+<!--        <com.startapp.sdk.ads.banner.Banner-->
+<!--            android:id="@+id/startAppBanner"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            layout_alignParentBottom="true"-->
+<!--            android:layout_centerHorizontal="true"/>-->
+<!--        for FacebookAds-->
+        <LinearLayout
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </LinearLayout>
 
 
