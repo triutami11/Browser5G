@@ -20,7 +20,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdView
+import com.facebook.ads.AdSize
+import com.facebook.ads.AdView
 import com.startapp.sdk.ads.banner.Banner
 import com.startapp.sdk.adsbase.StartAppSDK
 import kotlinx.android.synthetic.main.tab_drawer.*
@@ -60,7 +61,9 @@ class TabsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener,
     private var tabsAdapter: LightningViewAdapter? = null
     private lateinit var uiController: UIController
 
-    lateinit var mAdView : AdView
+    //facebook Ads
+    private lateinit var adView: AdView
+
     lateinit var banner : Banner
     @Inject internal lateinit var userPreferences: UserPreferences
 
@@ -99,8 +102,13 @@ class TabsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener,
             }
         }
 
-       banner = view.findViewById(R.id.startAppBanner)
-        banner.loadAd()
+        adView = AdView(context, "IMG_16_9_APP_INSTALL#957023064793265_959323881229850", AdSize.BANNER_HEIGHT_50)
+        val adContainer = view.findViewById(R.id.banner_container) as LinearLayout
+        adContainer.addView(adView)
+        adView.loadAd()
+
+//       banner = view.findViewById(R.id.startAppBanner)
+//        banner.loadAd()
 
 //        mAdView = view.findViewById(R.id.adView)
 //        if (!BuildConfig.FULL_VERSION) {
@@ -146,6 +154,9 @@ class TabsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener,
     }
 
     override fun onDestroyView() {
+        if (adView !=null){
+            adView.destroy()
+        }
         super.onDestroyView()
         tabsAdapter = null
     }
