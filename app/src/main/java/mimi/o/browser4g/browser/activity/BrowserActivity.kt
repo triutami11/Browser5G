@@ -50,6 +50,9 @@ import androidx.fragment.app.Fragment
 import androidx.palette.graphics.Palette
 import butterknife.ButterKnife
 import com.anthonycr.grant.PermissionsManager
+import com.facebook.ads.AdSize
+import com.facebook.ads.AdView
+import com.facebook.ads.AudienceNetworkAds
 import com.startapp.sdk.adsbase.StartAppAd
 import com.startapp.sdk.adsbase.StartAppSDK
 import io.reactivex.Completable
@@ -141,6 +144,9 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
 
     // startApp
     private lateinit var startAppAd : StartAppAd
+
+    //facebook Ads
+    private lateinit var adView: AdView
 
     // The singleton BookmarkManager
     @Inject lateinit var bookmarkManager: BookmarkRepository
@@ -237,7 +243,13 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
             logger
         )
         startAppAd = StartAppAd(this)
+        AudienceNetworkAds.initialize(this);
 
+
+        adView = AdView(this, "IMG_16_9_APP_INSTALL#957023064793265_959323881229850", AdSize.BANNER_HEIGHT_50)
+        val adContainer = findViewById(R.id.banner_container) as LinearLayout
+        adContainer.addView(adView)
+        adView.loadAd()
         initialize(savedInstanceState)
     }
 
@@ -1239,6 +1251,10 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         mainHandler.removeCallbacksAndMessages(null)
 
         presenter?.shutdown()
+
+        if (adView !=null){
+            adView.destroy()
+        }
 
         super.onDestroy()
     }
