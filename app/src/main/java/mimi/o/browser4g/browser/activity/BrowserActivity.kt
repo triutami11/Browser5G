@@ -212,7 +212,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     protected abstract fun updateCookiePreference(): Completable
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        StartAppSDK.init(this, "132229622", "207763060", true);
         super.onCreate(savedInstanceState)
         injector.inject(this)
         setContentView(R.layout.activity_main)
@@ -242,9 +241,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         )
         startAppAd = StartAppAd(this)
         AudienceNetworkAds.initialize(this);
-
-
-
         initialize(savedInstanceState)
     }
 
