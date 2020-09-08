@@ -28,7 +28,8 @@ class SplashActivity : AppCompatActivity() {
 //        StartAppSDK.init(this, "132229622", "207763060", true);
         AudienceNetworkAds.initialize(this)
         interstitialAd = InterstitialAd(this, "957023064793265_957023834793188")
-        AdSettings.addTestDevice("73756826-bbdd-4788-a380-7b3962382944")
+        AdSettings.addTestDevice("eaddb484-f84b-4dd3-b557-778768515286")
+        AdSettings.clearTestDevices()
         interstitialAd.setAdListener(object : InterstitialAdListener {
             override fun onInterstitialDisplayed(ad: Ad?) {
                 // Interstitial ad displayed callback

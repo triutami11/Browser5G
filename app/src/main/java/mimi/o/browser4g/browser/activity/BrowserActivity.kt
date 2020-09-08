@@ -239,8 +239,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
             RecentTabModel(),
             logger
         )
-        startAppAd = StartAppAd(this)
-        AudienceNetworkAds.initialize(this);
+//        startAppAd = StartAppAd(this)
         initialize(savedInstanceState)
     }
 
@@ -1183,7 +1182,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     }
 
     override fun onBackPressed() {
-        startAppAd.onBackPressed()
+//        startAppAd.onBackPressed()
         val currentTab = tabsManager.currentTab
         if (drawer_layout.isDrawerOpen(getTabDrawer())) {
             drawer_layout.closeDrawer(getTabDrawer())

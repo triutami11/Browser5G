@@ -80,7 +80,7 @@ class TabsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener,
         colorMode = colorMode and !darkTheme
 
         iconColor = ThemeUtils.getIconThemeColor(context, darkTheme)
-        StartAppSDK.init(context, "132229622", "207763060", true);
+//        StartAppSDK.init(context, "132229622", "207763060", true);
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
