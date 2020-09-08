@@ -53,8 +53,6 @@ import com.anthonycr.grant.PermissionsManager
 import com.facebook.ads.AdSize
 import com.facebook.ads.AdView
 import com.facebook.ads.AudienceNetworkAds
-import com.startapp.sdk.adsbase.StartAppAd
-import com.startapp.sdk.adsbase.StartAppSDK
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.subscribeBy
@@ -143,7 +141,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     private var findResult: FindResults? = null
 
     // startApp
-    private lateinit var startAppAd : StartAppAd
 
 
     // The singleton BookmarkManager

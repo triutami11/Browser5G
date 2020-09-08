@@ -22,8 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.ads.AdSize
 import com.facebook.ads.AdView
-import com.startapp.sdk.ads.banner.Banner
-import com.startapp.sdk.adsbase.StartAppSDK
 import kotlinx.android.synthetic.main.tab_drawer.*
 import mimi.o.browser4g.R
 import mimi.o.browser4g.browser.TabsManager
@@ -64,7 +62,6 @@ class TabsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener,
     //facebook Ads
     private lateinit var adView: AdView
 
-    lateinit var banner : Banner
     @Inject internal lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
